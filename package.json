@@ -4,7 +4,8 @@
   "description": "Demo app for the class Dev Ops for Frontend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gulp build && forever start app.js >> /var/log/forever/forever.log"
   },
   "repository": {
     "type": "git",
