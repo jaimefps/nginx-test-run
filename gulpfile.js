@@ -25,6 +25,14 @@ const JS_DIST = 'main.min.js';
  */
 const DIST_FOLDER = './dist/';
 
+// concat js files and uglify/minify them
+gulp.task('less', function () {
+  gulp.src(['./less/base.less'])
+    .pipe(less())
+    .pipe(concat(CSS_DIST))
+    .pipe(gulp.dest(DIST_FOLDER));
+});
+
 // Concat js files and uglify/minify them
 gulp.task('scripts', function() {
   gulp.src(['./js/**/*.js'])
@@ -42,10 +50,12 @@ gulp.task('clean-js', function() {
 
 // Remove all css files from the production folder
 gulp.task('clean-css', function() {
-  // Your code here
+  del([`${DIST_FOLDER}*.css`, ]).then(paths => {
+    paths.length && console.log('Removed:\n', paths.join('\n'));
+  });
 });
 
 
-gulp.task('build', ['clean-js', 'scripts']);
+gulp.task('build', ['clean-js','clean-css', 'scripts', 'less']);
 
 gulp.task('deploy', ['build']);
